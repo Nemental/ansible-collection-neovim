@@ -1,0 +1,14 @@
+---
+namespace: nemental
+name: neovim
+version: 1.0.0
+readme: README.md
+authors:
+  - Nemental
+description: Build and deploy your neovim
+dependencies:
+  community.docker: ">=3.4.11"
+repository: https://github.com/Nemental/ansible-collection-neovim
+documentation: https://github.com/Nemental/ansible-collection-neovim
+homepage: https://github.com/Nemental/ansible-collection-neovim
+issues: https://github.com/Nemental/ansible-collection-neovim/issues
