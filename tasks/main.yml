@@ -1,13 +1,26 @@
 ---
 
-- ansible.builtin.command: {cmd: "id -u"}
+- name: Get UID of current user
+  ansible.builtin.command: {cmd: "id -u"}
   register: uid
 
-- community.docker.docker_image:
+- name: Build docker image
+  community.docker.docker_image:
     name: neovim-builder
     source: build
     build:
       path: "{{ role_path ~ '/files'}}"
       args:
+        USER: builder
         UID: "{{ uid.stdout }}"
     force_source: true
+
+- name: Run docker container
+  community.docker.docker_container:
+    name: neovim-builder
+    image: neovim-builder
+    volumes:
+      - "{{ role_path }}/build:/home/builder/nvim"
+    cleanup: true
+    keep_volumes: false
+    auto_remove: true
