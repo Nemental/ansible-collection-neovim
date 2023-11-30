@@ -15,6 +15,11 @@
         UID: "{{ uid.stdout }}"
     force_source: true
 
+- name: Create build directory
+  ansible.builtin.file:
+    path: "{{ role_path ~ '/build' }}"
+    state: directory
+
 - name: Run docker container
   community.docker.docker_container:
     name: neovim-builder
