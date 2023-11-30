@@ -1,0 +1,8 @@
+---
+
+- name: Build neovim from source with docker
+  hosts: localhost
+  connection: local
+  become: false
+  roles:
+    - role: build
