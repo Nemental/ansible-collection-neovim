@@ -1,0 +1,6 @@
+---
+
+galaxy_info:
+  author: Nemental
+  description: Ansible role to build neovim from source with docker container
+  min_ansible_version: 2.1
