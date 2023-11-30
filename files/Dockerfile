@@ -1,12 +1,17 @@
-FROM alpine:latest
+FROM debian:12
 
-RUN apk add build-base \
-            cmake \
-            coreutils \
-            curl \
-            unzip \
-            gettext-tiny-dev
+ARG UID
+ARG USER=builder
 
-COPY --chmod=0755 docker-entrypoint.sh /docker-entrypoint.sh
+RUN useradd -u $UID -ms /bin/bash $USER
+
+RUN apt update && \
+    apt install -y ninja-build gettext cmake unzip curl git
+
+USER $USER
+WORKDIR $HOME
+
+COPY --chown=$UID docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
