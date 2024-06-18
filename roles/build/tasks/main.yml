@@ -37,10 +37,10 @@
   when: neovim_build_target is defined
   block:
     - name: Copy build
-      ansible.builtin.copy:
-        src: "{{ tmpbuild.path }}"
+      ansible.posix.synchronize:
+        src: "{{ tmpbuild.path ~ '/' }}"
         dest: "{{ neovim_build_target }}"
-        mode: "0755"
+        archive: true
 
     - name: Delete temp build directory
       ansible.builtin.file:

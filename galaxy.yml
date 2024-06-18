@@ -8,7 +8,8 @@ authors:
 description: Build your neovim from source
 dependencies:
   community.docker: "3.10.4"
-tags: ['application', 'linux']
+  ansible.posix: "1.5.4"
+tags: ["application", "linux"]
 repository: https://github.com/Nemental/ansible-collection-neovim
 documentation: https://github.com/Nemental/ansible-collection-neovim
 homepage: https://github.com/Nemental/ansible-collection-neovim
