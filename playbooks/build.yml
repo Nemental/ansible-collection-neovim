@@ -1,8 +1,7 @@
 ---
 
 - name: Build neovim from source with docker
-  hosts: localhost
-  connection: local
+  hosts: "{{ target | default('localhost') }}"
   become: false
   roles:
     - name: Build role
