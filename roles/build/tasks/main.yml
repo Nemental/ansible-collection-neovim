@@ -5,7 +5,7 @@
   register: uid
   changed_when: uid.rc != 0
 
-- name: Build docker image
+- name: Create build docker image
   community.docker.docker_image:
     name: neovim-builder
     source: build
@@ -16,18 +16,33 @@
         UID: "{{ uid.stdout }}"
     force_source: true
 
-- name: Create build directory
-  ansible.builtin.file:
-    path: "{{ role_path ~ '/build' }}"
+- name: Create temp build directory
+  ansible.builtin.tempfile:
     state: directory
-    mode: "0644"
+    suffix: build
+  register: tmpbuild
 
-- name: Run docker container
+- name: Run build docker container
   community.docker.docker_container:
     name: neovim-builder
     image: neovim-builder
     volumes:
-      - "{{ role_path }}/build:/home/builder/nvim"
+      - "{{ tmpbuild.path }}:/home/builder/nvim"
     cleanup: true
     keep_volumes: false
     auto_remove: true
+    detach: false
+
+- name: Copy and delete build
+  when: neovim_build_target is defined
+  block:
+    - name: Copy build
+      ansible.builtin.copy:
+        src: "{{ tmpbuild.path }}"
+        dest: "{{ neovim_build_target }}"
+        mode: "0755"
+
+    - name: Delete temp build directory
+      ansible.builtin.file:
+        path: "{{ tmpbuild.path }}"
+        state: absent
