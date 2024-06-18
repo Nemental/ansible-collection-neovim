@@ -6,3 +6,7 @@ rules:
   line-length:
     max: 170
     level: warning
+
+ignore:
+  - changelogs/.plugin-cache.yaml
+  - changelogs/changelog.yaml
