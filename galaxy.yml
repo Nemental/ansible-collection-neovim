@@ -5,9 +5,10 @@ version: 1.0.0
 readme: README.md
 authors:
   - Nemental
-description: Build and deploy your neovim
+description: Build your neovim from source
 dependencies:
-  community.docker: ">=3.4.11"
+  community.docker: "3.4.11"
+tags: ['application', 'linux']
 repository: https://github.com/Nemental/ansible-collection-neovim
 documentation: https://github.com/Nemental/ansible-collection-neovim
 homepage: https://github.com/Nemental/ansible-collection-neovim

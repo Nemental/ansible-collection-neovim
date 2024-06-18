@@ -5,4 +5,5 @@
   connection: local
   become: false
   roles:
-    - role: build
+    - name: Build role
+      role: build

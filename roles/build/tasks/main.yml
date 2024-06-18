@@ -3,6 +3,7 @@
 - name: Get UID of current user
   ansible.builtin.command: {cmd: "id -u"}
   register: uid
+  changed_when: uid.rc != 0
 
 - name: Build docker image
   community.docker.docker_image:
@@ -19,6 +20,7 @@
   ansible.builtin.file:
     path: "{{ role_path ~ '/build' }}"
     state: directory
+    mode: "0644"
 
 - name: Run docker container
   community.docker.docker_container:
