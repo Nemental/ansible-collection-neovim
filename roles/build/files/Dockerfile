@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:13
 
 ARG UID=1000
 ARG USER=builder
